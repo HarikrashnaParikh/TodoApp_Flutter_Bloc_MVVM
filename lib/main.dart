@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_with_firebase/model/task.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:todo_app_with_firebase/view/tasksScreen.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
-void main() {
-  BlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

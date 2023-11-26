@@ -2,21 +2,24 @@ import 'package:equatable/equatable.dart';
 
 //ignore: must_be_immutable
 class Task extends Equatable {
+  final String id;
   final String title;
   bool? isDone;
   bool? isDeleted;
 
-  Task({required this.title, this.isDone, this.isDeleted}) {
+  Task({required this.id, required this.title, this.isDone, this.isDeleted}) {
     isDone = isDone ?? false;
     isDeleted = isDeleted ?? false;
   }
   //copyWith method is a convenient way to create a new instance of an object with some of its properties modified while keeping the rest unchanged.
   Task copyWith({
+    String? id,
     String? title,
     bool? isDone,
     bool? isDeleted,
   }) {
     return Task(
+      id: id ?? this.id,
       title: title ?? this.title,
       isDone: isDone ?? this.isDone,
       isDeleted: isDeleted ?? this.isDeleted,
@@ -25,6 +28,7 @@ class Task extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': this.id,
       'title': this.title,
       'isDone': this.isDone,
       'isDeleted': this.isDeleted,
@@ -33,6 +37,7 @@ class Task extends Equatable {
 
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
+      id: map['id'] as String ?? '',
       title: map['title'] as String ?? '',
       isDone: map['isDone'] as bool,
       isDeleted: map['isDeleted'] as bool,
@@ -40,8 +45,8 @@ class Task extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
+        id,
         title,
         isDone,
         isDeleted,

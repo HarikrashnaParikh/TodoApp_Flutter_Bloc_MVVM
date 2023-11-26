@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/task.dart';
 
@@ -42,8 +43,11 @@ class AddTaskScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
+                  final uuid = Uuid();
+                  String userId = uuid.v4();
                   var task = Task(
                     title: titleController.text,
+                    id: userId,
                   );
                   context.read<TaskBloc>().add(AddTask(task: task));
                   Navigator.pop(context);
