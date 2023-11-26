@@ -23,6 +23,8 @@ dependencies:
   hydrated_bloc: ^9.1.2
   path_provider: ^2.1.1
   uuid: ^4.2.1
+  firebase_auth: ^4.14.1
+  firebase_core: ^2.23.0
 
 
   # The following adds the Cupertino Icons font to your application.
