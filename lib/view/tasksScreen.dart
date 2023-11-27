@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/model/task.dart';
 import 'package:todo_app_with_firebase/view/tasks_list.dart';
@@ -5,6 +6,7 @@ import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
 import 'add_task_screen.dart';
 
+@RoutePage()
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 

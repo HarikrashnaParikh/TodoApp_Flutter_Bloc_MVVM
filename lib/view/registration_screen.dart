@@ -1,9 +1,13 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/database/auth_service.dart';
+import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
+@RoutePage()
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
   static const id = 'register_screen';
@@ -109,11 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       if (user != null) {
                         // Navigator.pushNamed('asd');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
+                        AutoRouter.of(context).push(LoginScreenRoute());
                       }
                     }
                   }),

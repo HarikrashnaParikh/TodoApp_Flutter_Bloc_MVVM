@@ -1,7 +1,9 @@
+import 'package:auto_route/annotations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
 
+@RoutePage()
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
   static const id = 'forgot_password_screen';

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:auto_route/auto_route.dart';
 import '../model/task.dart';
 
+@RoutePage()
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({
     super.key,

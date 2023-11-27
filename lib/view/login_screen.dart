@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app_with_firebase/view/registration_screen.dart';
 
@@ -7,6 +8,7 @@ import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
 import 'forgot_password_screen.dart';
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   static const id = 'login_screen';

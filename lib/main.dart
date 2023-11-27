@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:todo_app_with_firebase/services/app_router.dart';
+import 'package:todo_app_with_firebase/routes/routes_import.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
 import 'package:todo_app_with_firebase/view/registration_screen.dart';
 import 'package:todo_app_with_firebase/view/tasksScreen.dart';
@@ -17,23 +17,25 @@ void main() async {
   //   storageDirectory: await getApplicationDocumentsDirectory(),
   // );
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final _appRouter = AppRouter();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TaskCubit>(
       create: (context) => TaskCubit(),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Flutter Task App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginScreen(),
+        // home: LoginScreen(),
+        routerConfig: _appRouter.config(),
         // onGenerateRoute: AppRouter().onGenerateRoute(routeSettings),
       ),
     );
