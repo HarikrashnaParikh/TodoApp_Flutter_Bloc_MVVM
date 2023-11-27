@@ -12,9 +12,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
-  );
+  // HydratedBloc.storage = await HydratedStorage.build(
+  //   storageDirectory: await getApplicationDocumentsDirectory(),
+  // );
 
   runApp(const MyApp());
 }
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TaskBloc>(
-      create: (context) => TaskBloc(),
+    return BlocProvider<TaskCubit>(
+      create: (context) => TaskCubit(),
       child: MaterialApp(
         title: 'Flutter Task App',
         theme: ThemeData(

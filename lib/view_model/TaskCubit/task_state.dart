@@ -1,4 +1,4 @@
-part of 'task_bloc.dart';
+part of 'task_cubit.dart';
 
 @immutable
 class TaskState extends Equatable {
@@ -24,5 +24,4 @@ class TaskState extends Equatable {
       allTasks: List<Task>.from(map['allTasks']?.map((x) => Task.fromMap(x))),
     );
   }
-//
 }

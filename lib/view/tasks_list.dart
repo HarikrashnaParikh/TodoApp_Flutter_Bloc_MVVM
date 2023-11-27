@@ -23,13 +23,13 @@ class TasksList extends StatelessWidget {
               leading: Checkbox(
                 value: task.isDone,
                 onChanged: (value) {
-                  context.read<TaskBloc>().add(UpdateTask(task: task));
+                  context.read<TaskCubit>().updateTask(task);
                 },
               ),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  context.read<TaskBloc>().add(DeleteTask(task: task));
+                  context.read<TaskCubit>().deleteTask(task);
                 },
               ),
             );

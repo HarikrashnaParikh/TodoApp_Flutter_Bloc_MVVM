@@ -49,7 +49,7 @@ class AddTaskScreen extends StatelessWidget {
                     title: titleController.text,
                     id: userId,
                   );
-                  context.read<TaskBloc>().add(AddTask(task: task));
+                  context.read<TaskCubit>().addTask(task);
                   Navigator.pop(context);
                 },
                 child: Text('Add'),

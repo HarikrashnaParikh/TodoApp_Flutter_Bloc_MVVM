@@ -28,7 +28,7 @@ class _TasksScreenState extends State<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskBloc, TaskState>(
+    return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
         List<Task> tasksList = state.allTasks;
         return Scaffold(
