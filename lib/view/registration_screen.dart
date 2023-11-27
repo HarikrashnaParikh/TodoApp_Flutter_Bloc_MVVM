@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_with_firebase/database/auth_service.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
+import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,8 +16,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -98,22 +98,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 50,
               width: 100,
               child: ElevatedButton(
-                onPressed: () {
-                  final isValid = _formKey.currentState!.validate();
-                  _auth
-                      .createUserWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text)
-                      .then((value) {
-                    print('change Route');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  });
-                },
-                child: const Text('Register'),
-              ),
+                  child: const Text('Register'),
+                  onPressed: () async {
+                    final isValid = _formKey.currentState!.validate();
+                    if (isValid) {
+                      final user = context.read<TaskCubit>().registerUser(
+                            _emailController.text,
+                            _passwordController.text,
+                          );
+
+                      if (user != null) {
+                        // Navigator.pushNamed('asd');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      }
+                    }
+                  }),
             ),
           ],
         ),

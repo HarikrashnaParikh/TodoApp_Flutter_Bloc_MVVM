@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:todo_app_with_firebase/services/app_router.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
 import 'package:todo_app_with_firebase/view/registration_screen.dart';
 import 'package:todo_app_with_firebase/view/tasksScreen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: LoginScreen(),
+        // onGenerateRoute: AppRouter().onGenerateRoute(routeSettings),
       ),
     );
   }

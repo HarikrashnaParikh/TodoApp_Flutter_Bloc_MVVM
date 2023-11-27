@@ -3,6 +3,7 @@ import 'package:todo_app_with_firebase/view/registration_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/view/tasksScreen.dart';
+import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
 import 'forgot_password_screen.dart';
 
@@ -18,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void dispose() {
     _emailController.dispose();
@@ -104,17 +104,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       final isValid = _formKey.currentState!.validate();
-                      _auth
-                          .signInWithEmailAndPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text)
-                          .then((value) {
-                        print('log in success');
-                        Navigator.push(
+                      if (isValid) {
+                        final user = context.read<TaskCubit>().loginUser(
+                            _emailController.text, _passwordController.text);
+                        if (user != null) {
+                          Navigator.push(
                             context,
-                            new MaterialPageRoute(
-                                builder: (context) => TasksScreen()));
-                      });
+                            MaterialPageRoute(
+                                builder: (context) => TasksScreen()),
+                          );
+                        }
+                      }
                     },
                     child: const Text(
                       'Login',
