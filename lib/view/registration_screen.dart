@@ -27,17 +27,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
       body: Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Register',
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Insert email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                  hintText: 'Enter Email',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -51,7 +70,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Insert password'),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Insert password',
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password is required';
@@ -62,22 +91,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                final isValid = _formKey.currentState!.validate();
-                _auth
-                    .createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text)
-                    .then((value) {
-                  print('change Route');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                });
-              },
-              child: const Text('Register'),
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(
+              height: 50,
+              width: 100,
+              child: ElevatedButton(
+                onPressed: () {
+                  final isValid = _formKey.currentState!.validate();
+                  _auth
+                      .createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text)
+                      .then((value) {
+                    print('change Route');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  });
+                },
+                child: const Text('Register'),
+              ),
             ),
           ],
         ),

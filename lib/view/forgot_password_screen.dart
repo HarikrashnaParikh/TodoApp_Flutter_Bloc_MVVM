@@ -25,20 +25,35 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Forgot Password'),
-      ),
       body: Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Forgot Password',
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Enter your email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                  hintText: 'Enter your email',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -48,6 +63,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 },
                 controller: _emailController,
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -71,7 +89,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       ),
                       backgroundColor: Colors.green,
-                      duration: Duration(microseconds: 2000),
+                      duration: Duration(microseconds: 3000),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }).onError((error, stackTrace) {
@@ -83,7 +101,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       ),
                       backgroundColor: Colors.red,
-                      duration: Duration(microseconds: 2000),
+                      duration: Duration(microseconds: 3000),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
@@ -93,7 +111,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   children: const [
                     Icon(Icons.mail_outline),
                     SizedBox(width: 10),
-                    Text("Reset Password")
+                    Text(
+                      "Reset Password",
+                      style: TextStyle(fontSize: 18),
+                    )
                   ],
                 ))
           ],

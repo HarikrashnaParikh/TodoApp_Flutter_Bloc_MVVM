@@ -23,7 +23,7 @@ class AddTaskScreen extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField(
             autofocus: true,
             controller: titleController,
             decoration: InputDecoration(

@@ -29,77 +29,134 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Insert email'),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email is required';
-                    }
-                    return null;
-                  },
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _passwordController,
-                  decoration:
-                      const InputDecoration(labelText: 'Insert password'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password is required';
-                    } else if (value.length < 6) {
-                      return 'Password should be at least 6 characters';
-                    }
-                    return null;
-                  },
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final isValid = _formKey.currentState!.validate();
-                  _auth
-                      .signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text)
-                      .then((value) {
-                    print('log in success');
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => TasksScreen()));
-                  });
-                },
-                child: const Text('Login'),
-              ),
-              TextButton(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        fontSize: 20,
+                      ),
+                      hintText: 'Enter Email',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 20.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email is required';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'Insert password',
+                      labelStyle: TextStyle(
+                        fontSize: 20,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 20.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      } else if (value.length < 6) {
+                        return 'Password should be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final isValid = _formKey.currentState!.validate();
+                      _auth
+                          .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text)
+                          .then((value) {
+                        print('log in success');
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => TasksScreen()));
+                      });
+                    },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RegisterScreen()),
                     );
                   },
-                  child: const Text('Don\'t have an Account?')),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen()));
-                  },
-                  child: const Text('Forget Password')),
-            ],
+                  child: const Text(
+                    'Don\'t have an Account?',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => ForgotPasswordScreen()));
+                    },
+                    child: const Text(
+                      'Forget Password',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    )),
+              ],
+            ),
           ),
         ),
       ),
