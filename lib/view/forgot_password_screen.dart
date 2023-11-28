@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 import 'package:todo_app_with_firebase/view/login_screen.dart';
 
 @RoutePage()
@@ -70,55 +72,74 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               height: 20,
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(100, 40),
-                    maximumSize: const Size(200, 40)),
-                onPressed: () async {
-                  _formKey.currentState!.validate();
-                  await _auth
-                      .sendPasswordResetEmail(
-                          email: _emailController.text.trim())
-                      .then((value) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                    var snackBar = SnackBar(
-                      content: Text(
-                        'chwck your email',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(100, 40),
+                  maximumSize: const Size(200, 40)),
+              onPressed: () async {
+                _formKey.currentState!.validate();
+                await _auth
+                    .sendPasswordResetEmail(email: _emailController.text.trim())
+                    .then((value) {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => LoginScreen()),
+                  // );
+                  AutoRouter.of(context).push(LoginScreenRoute());
+                  var snackBar = SnackBar(
+                    content: Text(
+                      'chwck your email',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
-                      backgroundColor: Colors.green,
-                      duration: Duration(microseconds: 3000),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }).onError((error, stackTrace) {
-                    var snackBar = SnackBar(
-                      content: Text(
-                        'Please Enter Register Email',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                    ),
+                    backgroundColor: Colors.green,
+                    duration: Duration(microseconds: 3000),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }).onError((error, stackTrace) {
+                  var snackBar = SnackBar(
+                    content: Text(
+                      'Please Enter Register Email',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
-                      backgroundColor: Colors.red,
-                      duration: Duration(microseconds: 3000),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.mail_outline),
-                    SizedBox(width: 10),
-                    Text(
-                      "Reset Password",
-                      style: TextStyle(fontSize: 18),
-                    )
-                  ],
-                ))
+                    ),
+                    backgroundColor: Colors.red,
+                    duration: Duration(microseconds: 3000),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.mail_outline),
+                  SizedBox(width: 10),
+                  Text(
+                    "Reset Password",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => LoginScreen()),
+                // );
+                AutoRouter.of(context).push(LoginScreenRoute());
+              },
+              child: const Text(
+                'Back to Login Page',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
           ],
         ),
       ),

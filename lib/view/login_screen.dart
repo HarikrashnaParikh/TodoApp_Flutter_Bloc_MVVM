@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 import 'package:todo_app_with_firebase/view/registration_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -110,11 +112,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         final user = context.read<TaskCubit>().loginUser(
                             _emailController.text, _passwordController.text);
                         if (user != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TasksScreen()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => TasksScreen()),
+                          // );
+                          AutoRouter.of(context).push(TasksScreenRoute());
                         }
                       }
                     },
@@ -132,10 +135,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    // );
+                    AutoRouter.of(context).push(RegisterScreenRoute());
                   },
                   child: const Text(
                     'Don\'t have an Account?',
@@ -146,10 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => ForgotPasswordScreen()));
+                      // Navigator.push(
+                      //     context,
+                      //     new MaterialPageRoute(
+                      //         builder: (context) => ForgotPasswordScreen()));
+                      AutoRouter.of(context).push(ForgotPasswordScreenRoute());
                     },
                     child: const Text(
                       'Forget Password',

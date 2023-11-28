@@ -118,6 +118,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                   }),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => LoginScreen()),
+                // );
+                AutoRouter.of(context).push(LoginScreenRoute());
+              },
+              child: const Text(
+                'Already have an account? Login here',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
           ],
         ),
       ),
