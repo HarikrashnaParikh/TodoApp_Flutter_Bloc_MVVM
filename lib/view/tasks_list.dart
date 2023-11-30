@@ -29,6 +29,8 @@ class TasksList extends StatelessWidget {
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () {
+                  // db change
+
                   context.read<TaskCubit>().deleteTask(task);
                 },
               ),

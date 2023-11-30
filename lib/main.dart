@@ -6,10 +6,13 @@ import 'package:todo_app_with_firebase/view/registration_screen.dart';
 import 'package:todo_app_with_firebase/view/tasksScreen.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'database/firebase_options.dart';
+import 'object_box/ObjectBox.dart';
 
 void main() async {
+  // late ObjectBox objectBox;
   WidgetsFlutterBinding.ensureInitialized();
+  // objectBox = await ObjectBox.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

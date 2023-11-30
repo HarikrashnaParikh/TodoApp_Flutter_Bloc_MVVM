@@ -2,22 +2,37 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:objectbox/objectbox.dart';
 import 'package:todo_app_with_firebase/model/task.dart';
+import 'package:todo_app_with_firebase/object_box/objectbox.g.dart';
 
 import '../../database/auth_service.dart';
+import '../../object_box/ObjectBox.dart';
 part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
-  final AuthService _authService = AuthService();
   TaskCubit() : super(TaskState());
-  void addTask(Task task) {
+  final AuthService _authService = AuthService();
+  ObjectBox objectBox = ObjectBox();
+  // late final Store _store;
+  // var temp = objectBox.init();
+  void addTask(Task task) async {
+    // var temp = objectBox.init();
+    // print(temp);
+    // _store = await openStore();
+    // Box<Task> _taskStore = _store.box<Task>();
+    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore.put(task);
     final state = this.state;
     emit(TaskState(
-      allTasks: List.from(state.allTasks)..add(task),
+      allTasks: _taskStore.getAll(),
     ));
+    objectBox.closeStore();
   }
 
-  void updateTask(Task task) {
+  void updateTask(Task task) async {
+    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore.put(task);
     final state = this.state;
     final int index = state.allTasks.indexOf(task);
     List<Task> allTasks = List.from(state.allTasks)..remove(task);
@@ -25,14 +40,22 @@ class TaskCubit extends Cubit<TaskState> {
         ? allTasks.insert(index, task.copyWith(isDone: true))
         : allTasks.insert(index, task.copyWith(isDone: false));
 
-    emit(TaskState(allTasks: allTasks));
+    emit(TaskState(allTasks: _taskStore.getAll()));
   }
 
-  void deleteTask(Task task) {
+  void deleteTask(Task task) async {
     final state = this.state;
+    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore.remove(task.internalId);
     emit(TaskState(
-      allTasks: List.from(state.allTasks)..remove(task),
+      allTasks: _taskStore.getAll(),
     ));
+    objectBox.closeStore();
+  }
+
+  void getAllTask() async {
+    Box<Task> _taskStore = await objectBox.initStore();
+    emit(TaskState(allTasks: _taskStore.getAll()));
   }
 
   Future<User?> registerUser(String email, String password) async {

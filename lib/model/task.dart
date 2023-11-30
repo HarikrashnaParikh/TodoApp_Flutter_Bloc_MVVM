@@ -1,8 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:objectbox/objectbox.dart';
 
-//ignore: must_be_immutable
+@Entity()
+// @Sync()
 class Task extends Equatable {
+  @Id()
+  int internalId = 0;
+  @Index()
   final String id;
+
   final String title;
   bool? isDone;
   bool? isDeleted;

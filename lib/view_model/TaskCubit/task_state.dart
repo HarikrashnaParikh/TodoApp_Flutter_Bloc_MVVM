@@ -2,9 +2,9 @@ part of 'task_cubit.dart';
 
 @immutable
 class TaskState extends Equatable {
-  final List<Task> allTasks;
+  List<Task> allTasks;
 
-  const TaskState({
+  TaskState({
     this.allTasks = const <Task>[],
   });
 
