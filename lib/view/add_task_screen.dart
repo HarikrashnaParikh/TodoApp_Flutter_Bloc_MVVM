@@ -6,7 +6,7 @@ import '../model/task.dart';
 
 @RoutePage()
 class AddTaskScreen extends StatelessWidget {
-  AddTaskScreen({
+  const AddTaskScreen({
     super.key,
   });
 
@@ -14,25 +14,25 @@ class AddTaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController titleController = TextEditingController();
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Add Task',
             style: TextStyle(fontSize: 24),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
             autofocus: true,
             controller: titleController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text('Title'),
               border: OutlineInputBorder(),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -40,20 +40,22 @@ class AddTaskScreen extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('cancel'),
+                child: const Text('cancel'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  final uuid = Uuid();
+                  const uuid = Uuid();
                   String userId = uuid.v4();
                   var task = Task(
                     title: titleController.text,
                     id: userId,
+                    isDone: false,
+                    isDeleted: false,
                   );
                   context.read<TaskCubit>().addTask(task);
                   Navigator.pop(context);
                 },
-                child: Text('Add'),
+                child: const Text('Add'),
               ),
             ],
           ),

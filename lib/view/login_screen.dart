@@ -1,14 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
-import 'package:todo_app_with_firebase/view/registration_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:todo_app_with_firebase/view/tasksScreen.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
-
-import 'forgot_password_screen.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -40,14 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Login',
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Padding(
@@ -56,11 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         fontSize: 20,
                       ),
                       hintText: 'Enter Email',
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0)),
@@ -81,10 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       labelText: 'Password',
                       hintText: 'Insert password',
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         fontSize: 20,
                       ),
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0)),
@@ -99,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 SizedBox(
@@ -117,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           //   MaterialPageRoute(
                           //       builder: (context) => TasksScreen()),
                           // );
-                          AutoRouter.of(context).push(TasksScreenRoute());
+                          AutoRouter.of(context).push(const TasksScreenRoute());
                         }
                       }
                     },
@@ -130,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextButton(
@@ -139,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   context,
                     //   MaterialPageRoute(builder: (context) => RegisterScreen()),
                     // );
-                    AutoRouter.of(context).push(RegisterScreenRoute());
+                    AutoRouter.of(context).push(const RegisterScreenRoute());
                   },
                   child: const Text(
                     'Don\'t have an Account?',
@@ -154,7 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       //     context,
                       //     new MaterialPageRoute(
                       //         builder: (context) => ForgotPasswordScreen()));
-                      AutoRouter.of(context).push(ForgotPasswordScreenRoute());
+                      AutoRouter.of(context)
+                          .push(const ForgotPasswordScreenRoute());
                     },
                     child: const Text(
                       'Forget Password',

@@ -13,6 +13,5 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ForgotPasswordScreenRoute.page),
         AutoRoute(page: TasksScreenRoute.page),
         AutoRoute(page: AddTaskScreenRoute.page)
-        // AutoRoute(page: AddTaskScreenRoute)
       ];
 }

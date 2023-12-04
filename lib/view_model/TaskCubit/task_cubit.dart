@@ -14,14 +14,10 @@ class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskState());
   final AuthService _authService = AuthService();
   ObjectBox objectBox = ObjectBox();
-  // late final Store _store;
-  // var temp = objectBox.init();
+  late Box<Task> _taskStore;
+
   void addTask(Task task) async {
-    // var temp = objectBox.init();
-    // print(temp);
-    // _store = await openStore();
-    // Box<Task> _taskStore = _store.box<Task>();
-    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore = await objectBox.initStore();
     _taskStore.put(task);
     final state = this.state;
     emit(TaskState(
@@ -31,21 +27,29 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void updateTask(Task task) async {
-    Box<Task> _taskStore = await objectBox.initStore();
-    _taskStore.put(task);
+    _taskStore = await objectBox.initStore();
+    // _taskStore.put(task);
     final state = this.state;
     final int index = state.allTasks.indexOf(task);
-    List<Task> allTasks = List.from(state.allTasks)..remove(task);
-    task.isDone == false
-        ? allTasks.insert(index, task.copyWith(isDone: true))
-        : allTasks.insert(index, task.copyWith(isDone: false));
+    List<Task> allTasks = List.from(state.allTasks);
+    allTasks.removeAt(index);
+    print("before toggle");
+    print(task.isDone);
+    task.toggleDone();
+    // task.isDone == false
+    //     ? allTasks.insert(index, task.copyWith(isDone: true))
+    //     : allTasks.insert(index, task.copyWith(isDone: false));
+    print("after toggle");
+    print(task.isDone);
+    // allTasks.add(task);
 
     emit(TaskState(allTasks: _taskStore.getAll()));
+    objectBox.closeStore();
   }
 
   void deleteTask(Task task) async {
     final state = this.state;
-    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore = await objectBox.initStore();
     _taskStore.remove(task.internalId);
     emit(TaskState(
       allTasks: _taskStore.getAll(),
@@ -54,8 +58,9 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void getAllTask() async {
-    Box<Task> _taskStore = await objectBox.initStore();
+    _taskStore = await objectBox.initStore();
     emit(TaskState(allTasks: _taskStore.getAll()));
+    objectBox.closeStore();
   }
 
   Future<User?> registerUser(String email, String password) async {

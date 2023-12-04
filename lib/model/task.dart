@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-// @Sync()
 class Task extends Equatable {
   @Id()
   int internalId = 0;
@@ -31,6 +30,10 @@ class Task extends Equatable {
       isDone: isDone ?? this.isDone,
       isDeleted: isDeleted ?? this.isDeleted,
     );
+  }
+
+  void toggleDone() {
+    isDone = !isDone!;
   }
 
   Map<String, dynamic> toMap() {

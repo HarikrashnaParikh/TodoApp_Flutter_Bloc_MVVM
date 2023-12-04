@@ -25,12 +25,12 @@ class TasksList extends StatelessWidget {
                 onChanged: (value) {
                   context.read<TaskCubit>().updateTask(task);
                 },
+                checkColor: task.isDone == true ? Colors.green : Colors.white,
               ),
               trailing: IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 onPressed: () {
                   // db change
-
                   context.read<TaskCubit>().deleteTask(task);
                 },
               ),

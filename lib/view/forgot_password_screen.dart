@@ -1,9 +1,7 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
-import 'package:todo_app_with_firebase/view/login_screen.dart';
 
 @RoutePage()
 class ForgotPasswordScreen extends StatefulWidget {
@@ -34,14 +32,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Forgot Password',
               style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -49,12 +47,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 20,
                   ),
                   hintText: 'Enter your email',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 20.0),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0)),
                 ),
@@ -68,7 +66,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 controller: _emailController,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ElevatedButton(
@@ -84,10 +82,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   //   context,
                   //   MaterialPageRoute(builder: (context) => LoginScreen()),
                   // );
-                  AutoRouter.of(context).push(LoginScreenRoute());
-                  var snackBar = SnackBar(
+                  AutoRouter.of(context).push(const LoginScreenRoute());
+                  var snackBar = const SnackBar(
                     content: Text(
-                      'chwck your email',
+                      'check your email',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -97,7 +95,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }).onError((error, stackTrace) {
-                  var snackBar = SnackBar(
+                  var snackBar = const SnackBar(
                     content: Text(
                       'Please Enter Register Email',
                       style: TextStyle(
@@ -110,9 +108,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 });
               },
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.mail_outline),
                   SizedBox(width: 10),
                   Text(
@@ -122,7 +120,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextButton(
@@ -131,7 +129,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 //   context,
                 //   MaterialPageRoute(builder: (context) => LoginScreen()),
                 // );
-                AutoRouter.of(context).push(LoginScreenRoute());
+                AutoRouter.of(context).push(const LoginScreenRoute());
               },
               child: const Text(
                 'Back to Login Page',

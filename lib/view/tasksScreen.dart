@@ -23,7 +23,7 @@ class _TasksScreenState extends State<TasksScreen> {
         child: Container(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: AddTaskScreen()),
+            child: const AddTaskScreen()),
       ),
     );
   }
@@ -32,19 +32,22 @@ class _TasksScreenState extends State<TasksScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
+        context.read<TaskCubit>().getAllTask();
         List<Task> tasksList = state.allTasks;
+
         return Scaffold(
           appBar: AppBar(
             title: const Text('Tasks App'),
             actions: [
               IconButton(
-                  onPressed: () => _addTask(context), icon: Icon(Icons.add)),
+                  onPressed: () => _addTask(context),
+                  icon: const Icon(Icons.add)),
             ],
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
+              const Center(
                 child: Chip(
                   label: Text(
                     'Tasks',
@@ -57,7 +60,7 @@ class _TasksScreenState extends State<TasksScreen> {
           floatingActionButton: FloatingActionButton(
             onPressed: () => _addTask(context),
             tooltip: "Add Task",
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         );
       },
