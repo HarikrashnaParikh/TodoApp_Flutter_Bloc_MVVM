@@ -13,8 +13,8 @@ class AuthService {
       return userCredential.user;
     } catch (e) {
       print("Error registering user: $e");
-      return null;
     }
+    return null;
   }
 
   Future<User?> loginUser(String email, String password) async {
@@ -24,7 +24,7 @@ class AuthService {
       return userCredential.user;
     } catch (e) {
       print("Error registering user: $e");
-      return null;
     }
+    return null;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 
 import 'package:flutter/material.dart';
@@ -102,18 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       final isValid = _formKey.currentState!.validate();
-                      if (isValid) {
-                        final user = context.read<TaskCubit>().loginUser(
-                            _emailController.text, _passwordController.text);
-                        if (user != null) {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => TasksScreen()),
-                          // );
-                          AutoRouter.of(context).push(const TasksScreenRoute());
-                        }
-                      }
+                      login(isValid);
                     },
                     child: const Text(
                       'Login',
@@ -163,5 +153,23 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void login(bool isValid) async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    if (isValid) {
+      User? user = await context
+          .read<TaskCubit>()
+          .loginUser(_emailController.text, _passwordController.text);
+
+      if (user != null) {
+        print('Login Successfully!!!');
+        AutoRouter.of(context).push(const TasksScreenRoute());
+      } else {
+        print('some error happened?');
+      }
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
@@ -98,21 +99,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 50,
               width: 100,
               child: ElevatedButton(
-                  child: const Text('Register'),
-                  onPressed: () async {
-                    final isValid = _formKey.currentState!.validate();
-                    if (isValid) {
-                      final user = context.read<TaskCubit>().registerUser(
-                            _emailController.text,
-                            _passwordController.text,
-                          );
-
-                      if (user != null) {
-                        // Navigator.pushNamed('asd');
-                        AutoRouter.of(context).push(const LoginScreenRoute());
-                      }
-                    }
-                  }),
+                child: const Text('Register'),
+                onPressed: () {
+                  final isValid = _formKey.currentState!.validate();
+                  register(isValid);
+                },
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -137,4 +129,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  void register(bool isValid) async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    if (isValid) {
+      User? user = await context.read<TaskCubit>().registerUser(
+            email,
+            password,
+          );
+
+      if (user != null) {
+        print('User is created');
+        AutoRouter.of(context).push(const LoginScreenRoute());
+      } else {
+        print('some error happened?');
+      }
+    }
+  }
 }
+
+// () async {
+// final isValid = _formKey.currentState!.validate();
+// if (isValid) {
+// final user = context.read<TaskCubit>().registerUser(
+// _emailController.text,
+// _passwordController.text,
+// );
+//
+// if (user != null) {
+// // Navigator.pushNamed('asd');
+// AutoRouter.of(context).push(const LoginScreenRoute());
+// }
+// }
+// }),
