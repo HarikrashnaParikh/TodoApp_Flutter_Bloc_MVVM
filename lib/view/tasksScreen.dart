@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_with_firebase/model/task.dart';
+import 'package:todo_app_with_firebase/routes/routes_import.gr.dart';
 import 'package:todo_app_with_firebase/view/tasks_list.dart';
 import 'package:todo_app_with_firebase/view_model/bloc_exports.dart';
 
@@ -15,18 +17,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  void _addTask(BuildContext context) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        child: Container(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: const AddTaskScreen()),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +30,7 @@ class _TasksScreenState extends State<TasksScreen> {
             title: const Text('Tasks App'),
             actions: [
               IconButton(
-                  onPressed: () => _addTask(context),
+                  onPressed: () => AutoRouter.of(context).push(AddTaskScreenRoute()),
                   icon: const Icon(Icons.add)),
             ],
           ),
@@ -49,7 +39,7 @@ class _TasksScreenState extends State<TasksScreen> {
             children: [
               const Center(
                 child: Chip(
-                  label: Text(
+                  label: Text(  
                     'Tasks',
                   ),
                 ),
@@ -58,7 +48,7 @@ class _TasksScreenState extends State<TasksScreen> {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => _addTask(context),
+            onPressed: () => AutoRouter.of(context).push(AddTaskScreenRoute()),
             tooltip: "Add Task",
             child: const Icon(Icons.add),
           ),

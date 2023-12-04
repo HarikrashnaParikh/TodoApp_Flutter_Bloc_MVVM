@@ -13,53 +13,54 @@ class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController titleController = TextEditingController();
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          const Text(
-            'Add Task',
-            style: TextStyle(fontSize: 24),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            autofocus: true,
-            controller: titleController,
-            decoration: const InputDecoration(
-              label: Text('Title'),
-              border: OutlineInputBorder(),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Add Task',
+              style: TextStyle(fontSize: 24),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('cancel'),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              autofocus: true,
+              controller: titleController,
+              decoration: InputDecoration(
+                label: Text('Title'),
+                border: OutlineInputBorder(),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  const uuid = Uuid();
-                  String userId = uuid.v4();
-                  var task = Task(
-                    title: titleController.text,
-                    id: userId,
-                    isDone: false,
-                    isDeleted: false,
-                  );
-                  context.read<TaskCubit>().addTask(task);
-                  Navigator.pop(context);
-                },
-                child: const Text('Add'),
-              ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final uuid = Uuid();
+                    String userId = uuid.v4();
+                    var task = Task(
+                      title: titleController.text,
+                      id: userId,
+                    );
+                    context.read<TaskCubit>().addTask(task);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Add'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
