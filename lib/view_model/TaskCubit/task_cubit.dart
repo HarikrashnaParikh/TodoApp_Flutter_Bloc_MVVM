@@ -25,12 +25,13 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void updateTask(Task task) async {
+    print("========here=============");
     _taskStore = await objectBox.initStore();
 
     final state = this.state;
     final int index = state.allTasks.indexOf(task);
     List<Task> allTasks = List.from(state.allTasks);
-    task.toggleDone();
+    // task.toggleDone();
     allTasks[index] = task;
     _taskStore.put(task);
     emit(TaskState(allTasks: _taskStore.getAll()));
