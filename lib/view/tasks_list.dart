@@ -5,9 +5,9 @@ import '../model/task.dart';
 
 class TasksList extends StatelessWidget {
   const TasksList({
-    super.key,
+    Key? key,
     required this.tasksList,
-  });
+  }) : super(key: key);
 
   final List<Task> tasksList;
 
@@ -15,27 +15,27 @@ class TasksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-          itemCount: tasksList.length,
-          itemBuilder: (context, index) {
-            var task = tasksList[index];
-            return ListTile(
-              title: Text(task.title),
-              leading: Checkbox(
-                value: task.isDone,
-                onChanged: (value) {
-                  context.read<TaskCubit>().updateTask(task);
-                },
-                checkColor: task.isDone == true ? Colors.green : Colors.white,
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  // db change
-                  context.read<TaskCubit>().deleteTask(task);
-                },
-              ),
-            );
-          }),
+        key: UniqueKey(),
+        itemCount: tasksList.length,
+        itemBuilder: (context, index) {
+          var task = tasksList[index];
+          return ListTile(
+            title: Text(task.title),
+            leading: Checkbox(
+              value: task.isDone,
+              onChanged: (value) {
+                context.read<TaskCubit>().updateTask(task);
+              },
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                context.read<TaskCubit>().deleteTask(task);
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

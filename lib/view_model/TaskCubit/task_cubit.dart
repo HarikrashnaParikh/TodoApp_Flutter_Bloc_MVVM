@@ -20,29 +20,19 @@ class TaskCubit extends Cubit<TaskState> {
     _taskStore = await objectBox.initStore();
     _taskStore.put(task);
     final state = this.state;
-    emit(TaskState(
-      allTasks: _taskStore.getAll(),
-    ));
+    emit(TaskState(allTasks: _taskStore.getAll()));
     objectBox.closeStore();
   }
 
   void updateTask(Task task) async {
     _taskStore = await objectBox.initStore();
-    // _taskStore.put(task);
+
     final state = this.state;
     final int index = state.allTasks.indexOf(task);
     List<Task> allTasks = List.from(state.allTasks);
-    allTasks.removeAt(index);
-    print("before toggle");
-    print(task.isDone);
     task.toggleDone();
-    // task.isDone == false
-    //     ? allTasks.insert(index, task.copyWith(isDone: true))
-    //     : allTasks.insert(index, task.copyWith(isDone: false));
-    print("after toggle");
-    print(task.isDone);
-    // allTasks.add(task);
-
+    allTasks[index] = task;
+    _taskStore.put(task);
     emit(TaskState(allTasks: _taskStore.getAll()));
     objectBox.closeStore();
   }
@@ -51,9 +41,7 @@ class TaskCubit extends Cubit<TaskState> {
     final state = this.state;
     _taskStore = await objectBox.initStore();
     _taskStore.remove(task.internalId);
-    emit(TaskState(
-      allTasks: _taskStore.getAll(),
-    ));
+    emit(TaskState(allTasks: _taskStore.getAll()));
     objectBox.closeStore();
   }
 

@@ -16,6 +16,7 @@ class Task extends Equatable {
     isDone = isDone ?? false;
     isDeleted = isDeleted ?? false;
   }
+
   //copyWith method is a convenient way to create a new instance of an object with some of its properties modified while keeping the rest unchanged.
   //To update existing
   Task copyWith({
